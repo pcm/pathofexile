@@ -192,7 +192,7 @@ def report(league, level_bin_size=10):
     # class breakdown
     print 'Class breakdown:'
     classes = class_breakdown(ladder)
-    for class_name in classes:
+    for class_name in sorted(classes, key=classes.get, reverse=True):
         n = classes[class_name]
         print '    %s: %d (%.2f%%)' % (
             class_name,
@@ -204,11 +204,11 @@ def report(league, level_bin_size=10):
     top_class_max = 100
     print('Top {:d} Class breakdown:'.format(top_class_max))
     top_classes = class_breakdown(ladder[:top_class_max])
-    for class_name in top_classes:
+    for class_name in sorted(top_classes, key=top_classes.get, reverse=True):
         n = top_classes[class_name]
         p_total = percentage(classes[class_name], ladder_size=ladder_size)
         p_top = percentage(top_classes[class_name], ladder_size=top_class_max)
-        print('    {:s}: {:.2f}% ({:.2f}%)'.format(
+        print('    {:s}: {:.2f}% ({:+.2f}%)'.format(
             class_name,
             p_top,
             p_top - p_total)
