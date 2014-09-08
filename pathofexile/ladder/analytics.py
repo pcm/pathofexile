@@ -200,6 +200,20 @@ def report(league, level_bin_size=10):
             percentage(n, ladder_size=ladder_size),
         )
 
+    # top n class breakdown
+    top_class_max = 100
+    print('Top {:d} Class breakdown:'.format(top_class_max))
+    top_classes = class_breakdown(ladder[:top_class_max])
+    for class_name in top_classes:
+        n = top_classes[class_name]
+        p_total = percentage(classes[class_name], ladder_size=ladder_size)
+        p_top = percentage(top_classes[class_name], ladder_size=top_class_max)
+        print('    {:s}: {:.2f}% ({:.2f}%)'.format(
+            class_name,
+            p_top,
+            p_top - p_total)
+        )
+
     # challenge breakdown
     print 'Challenge completion breakdown:'
     challenges = challenge_breakdown(ladder)
